@@ -387,7 +387,7 @@ let args = message.content.split(' ').slice(1).join(' ');
 });
 client.on('ready', function(){    
     var ms = 40000 ;    
-    var setGame = ['Haaavén.','Haaavén.'];    
+    var setGame = ['Haaavén.'];    
     var i = -1;    
     var j = 0;    
     setInterval(function (){    
