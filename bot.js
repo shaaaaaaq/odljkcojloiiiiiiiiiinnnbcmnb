@@ -361,7 +361,7 @@ client.on("message", msg => {
 });
 client.on('message', async message => {
             if(!message.channel.guild) return;
-             if (message.content.startsWith("1sets")) {
+             if (message.content.startsWith("2sets")) {
 let args = message.content.split(' ').slice(1).join(' ');
             let sigMessage = await args;
             
