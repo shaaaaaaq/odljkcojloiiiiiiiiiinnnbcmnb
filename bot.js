@@ -20,7 +20,7 @@ const gif = require("gif-search");
 
 const client = new Discord.Client({disableEveryone: true});
 
-const prefix = "2";
+const prefix = "hs";
 /////////////////////////
 ////////////////////////
 
@@ -313,7 +313,7 @@ function play(guild, song) {
 
 
 client.on('message', message => {
-    if (message.content === '2help') {
+    if (message.content === 'hshelp') {
         let helpEmbed = new Discord.RichEmbed()
         .setTitle('**أوامر الميوزك...**')
         .setDescription('**برفكس البوت (L)**')
@@ -342,7 +342,7 @@ client.on('message', message => {
     }
 });
 client.on("message", msg => {
-  if(msg.content === '2' + "id") {
+  if(msg.content === 'hs' + "id") {
       const embed = new Discord.RichEmbed();
   embed.addField("🔱| اسم الحساب :", `${msg.author.username}#${msg.author.discriminator}`, true)
           .addField("🆔| الاي دي :", `${msg.author.id}`, true)
@@ -361,7 +361,7 @@ client.on("message", msg => {
 });
 client.on('message', async message => {
             if(!message.channel.guild) return;
-             if (message.content.startsWith("2sets")) {
+             if (message.content.startsWith("hssets")) {
 let args = message.content.split(' ').slice(1).join(' ');
             let sigMessage = await args;
             
@@ -387,7 +387,7 @@ let args = message.content.split(' ').slice(1).join(' ');
 });
 client.on('ready', function(){    
     var ms = 40000 ;    
-    var setGame = ['Haaavén.'];    
+    var setGame = ['Errrror.'];    
     var i = -1;    
     var j = 0;    
     setInterval(function (){    
