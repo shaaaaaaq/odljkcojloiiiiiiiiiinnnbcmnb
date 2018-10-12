@@ -387,7 +387,7 @@ let args = message.content.split(' ').slice(1).join(' ');
 });
 client.on('ready', function(){    
     var ms = 40000 ;    
-    var setGame = ['Errrror.'];    
+    var setGame = ['I love you there is no one else.'];    
     var i = -1;    
     var j = 0;    
     setInterval(function (){    
