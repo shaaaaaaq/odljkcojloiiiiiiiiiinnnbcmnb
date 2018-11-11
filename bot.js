@@ -20,7 +20,7 @@ const gif = require("gif-search");
 
 const client = new Discord.Client({disableEveryone: true});
 
-const prefix = "hs";
+const prefix = "S";
 /////////////////////////
 ////////////////////////
 
@@ -387,7 +387,7 @@ let args = message.content.split(' ').slice(1).join(' ');
 });
 client.on('ready', function(){    
     var ms = 40000 ;    
-    var setGame = ['I love you there is no one else.'];    
+    var setGame = ['Never lose your wonder.'];    
     var i = -1;    
     var j = 0;    
     setInterval(function (){    
