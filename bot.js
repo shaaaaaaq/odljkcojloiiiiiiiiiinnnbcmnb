@@ -1,183 +1,45 @@
-const Discord = require("discord.js");
-const bot = new Discord.Client({autoReconnect:true});
-const fs = require("fs");
+const Discord = require('discord.js');
 
-bot.on("ready", () => {
-  console.log("By Drugs");
-  console.log("Logged in " + bot.user.username);
+const Util = require('discord.js');
 
-});
-const token = "NDUwMTEwNDc2Mzk2MDAzMzQ5.DsoSxA.Wlsh3vzgjRbU1sAWYA0-FjwpeIc";
-const ownerid = "450110476396003349";
-const prefix = "S";
+const getYoutubeID = require('get-youtube-id');
 
-bot.on('message', message => {
-  if (!message.content.startsWith(prefix)) return;
-  var args = message.content.split(' ').slice(1);
-  var argresult = args.join(' ');
-  if (message.author.id !== ownerid) return;
+const fetchVideoInfo = require('youtube-info');
 
-  if (message.content.startsWith(prefix + 'wat')) {
-                
-      if(argresult){
-         message.channel.send("**You Are Watching **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
-        bot.user.setActivity(argresult, {type:'WATCHING'});
-      } else 
-      if(!argresult) {
-      message.channel.send("**Can You But An Input? Please?**").then(message => {message.delete(3000)})          
-      }
-    message.delete(3000);
-  } else
-   if (message.content.startsWith(prefix + 'stream')) {
-                
-      if(argresult){
-         message.channel.send("**You Are Streaming **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
-        bot.user.setActivity(argresult, {type:'STREAMING', url:"https://www.twitch.tv/TheFuture"});
-      } else 
-      if(!argresult) {
-      message.channel.send("**Can You But An Input? Please?**").then(message => {message.delete(3000)})          
-      }
-    message.delete(3000);
-  } else
-	    if (message.content.startsWith(prefix + 'play')) {
-             
-      if(argresult){
-         message.channel.send("**You Are Playing **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
-        bot.user.setActivity(argresult, {type:'PLAYING'});
-      } else 
-      if(!argresult) {
-      message.channel.send("**Can You But An Input? Please?**").then(message => {message.delete(3000)})          
-      }
-    message.delete(3000);
-  } else
-  
-    if (message.content.startsWith(prefix + 'listen')) {
-               
-      if(argresult){
-         message.channel.send("**You Are Listening To **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
-        bot.user.setActivity(argresult, {type:'LISTENING'});
-      } else 
-      if(!argresult) {
-      message.channel.send("**Can You But An Input? Please?**").then(message => {message.delete(3000)})          
-      }
-    message.delete(3000);
-  } else
-	  if (message.content.startsWith(prefix + "dnd")) {
-        message.channel.send("**Done Changing Your Status To `DND`**").then(message => {message.delete(3000)})
-        message.delete(3000);
-		  bot.user.setStatus("dnd");
-	  } else
-		  
-      if (message.content.startsWith(prefix + "idle")) {
-        message.channel.send("**Done Changing Your Status To `IDLE`**").then(message => {message.delete(3000)})
-        message.delete(3000);
-		  bot.user.setStatus("idle");
-	  } else
-		  
-	  if (message.content.startsWith(prefix + "off")) {
-          message.channel.send("**Done Changing Your Status To `OFFLINE`**").then(message => {message.delete(3000)})
-          message.delete(3000);
-		  bot.user.setStatus("invisible");
-	  } else 
+const YouTube = require('simple-youtube-api');
 
-       if (message.content.startsWith(prefix + "مسح")) {
+const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
 
-        let count = parseInt(args[0]) || 1;
+const queue = new Map();
 
-          message.delete();
-          message.channel.fetchMessages({ limit: Math.min(count, 100), before: message.id }).then(messages => {
-          const prunable = messages.filter(m => m.author.id === bot.user.id);
+const ytdl = require('ytdl-core');
 
-        return Promise.all(
-            prunable.map(m => m.delete())
-        ).then(() => {
-        });
-    }).catch(message.error);
+const fs = require('fs');
+
+const gif = require("gif-search");
+
+const client = new Discord.Client({disableEveryone: true});
+
+const prefix = "Sh";
+/////////////////////////
+////////////////////////
+
+client.on('message', async msg =>{
+	if (msg.author.bot) return undefined;
+    if (!msg.content.startsWith(prefix)) return undefined;
     
-} else
- if (message.content.startsWith(prefix + "فكك")) {
-   if (args.length < 1) {
-        message.channel.send('You must provide text to space out!').then(message => {message.delete(3000)})
+    let args = msg.content.split(' ');
+
+	let command = msg.content.toLowerCase().split(" ")[0];
+	command = command.slice(prefix.length)
+
+    if(command === `ping`) {
+    let embed = new Discord.RichEmbed()
+    .setColor(3447003)
+    .setTitle("Pong!!")
+    .setDescription(`${client.ping} ms,`)
+    .setFooter(`Requested by | ${msg.author.tag}`);
+    msg.delete().catch(O_o=>{})
+    msg.channel.send(embed);
     }
-       let amount = 2;
-
-    if (!isNaN(args[0])) {
-        amount = parseInt(args[0]);
-        (amount < 1) && (amount = 1);
-        (amount > 15) && (amount = 15);
-        args = args.slice(1);
-    }
-    message.delete();
-    message.channel.send(args.join(' '.repeat(amount / 2)).split('').join(' '.repeat(amount)));
-
- } else
-
- if (message.content.startsWith(prefix + "منشن")) {
-  if (!message.guild || !message.guild.members) {
-        message.channel.send('You must run this command from within a server.').then(message => {message.delete(3000)})
-    }  
-    let members = message.guild.members.array().sort((a, b) => a.user.username.localeCompare(b.user.username));
-
-    if (args.length > 0) {
-        members = members.filter(member => hasRole(member, args[0]));
-    }
-
-    if (members.length < 1) {
-        message.channel.send('No members could be found.').then(message => {message.delete(3000)})
-    }
-
-    message.delete();
-    let users = members.map(m => `${m.user}${(m.user.bot ? ' [BOT]' : '')}`);
-    const body = users.join('\n');
-
-    if (body.length < 2000) {
-        message.channel.send(body)//.then(message => {message.delete(60000)})
-
-       let raw = members.map(m => `${m.user.username}${m.user.bot ? ' [BOT]' : ''}`).join('\n');
-
-
-        let trimmed = body.substr(0, 1500);
-        trimmed = trimmed.slice(0, trimmed.lastIndexOf('\n'));
-        message.channel.send(trimmed)};
-
-
- } else
-  if (message.content.startsWith(prefix + "امبد")) {
-    if(args){
-            let embed = new Discord.RichEmbed()
-            //.setAuthor("انتظرتك بس طال الانتظار",message.author.avatarURL)
-    .setDescription(args.join("  "))
-    .setColor(696969)
-    message.channel.sendEmbed(embed);
-    message.delete();
-      } else 
-      if(!args) {
-      message.channel.send("**Can You But Something For Me To Transfer it to embed?**").then(message => {message.delete(3000)})          
-      }
-  
- } else
-       if (message.content.startsWith(prefix + "avatar")) {
-           var mentionned = message.mentions.users.first();
-    var MsH;
-      if(mentionned){
-          var MsH = mentionned;
-      } else {
-          var MsH = message.author;
-          
-      }
-          message.channel.send(MsH.avatarURL)
-          message.delete(3000);
-	  } 
-		  
 });
-
-
-
-bot.login(token);
-
-// functions
-function hasRole(member, roleName) {
-    return member.roles.map(role => role.name.toLowerCase()).indexOf(roleName.toLowerCase()) > -1;
-}
-
-
