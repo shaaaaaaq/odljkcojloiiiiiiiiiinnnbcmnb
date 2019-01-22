@@ -7,8 +7,8 @@ bot.on("ready", () => {
   console.log("Logged in " + bot.user.username);
 
 });
-const token = "mfa.VPqg1veLFZQa3Iz3dS1Zk89mFE1UDZ760LK_X8nhND1yfYEkZAIpkQPW550B7VPWjGf-6KgnRCAUTga9k49w";
-const ownerid = "402308252483977226";
+const token = "NDUwMTEwNDc2Mzk2MDAzMzQ5.DsoSxA.Wlsh3vzgjRbU1sAWYA0-FjwpeIc";
+const ownerid = "450110476396003349";
 const prefix = "S";
 
 bot.on('message', message => {
